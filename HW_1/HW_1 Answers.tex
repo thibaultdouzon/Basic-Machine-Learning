@@ -242,4 +242,30 @@ $$
 
 \section{Exercise 3}
 \subsection{Part a}
+To compute the mean, we sum the data and divide by the cardinal of the set:
+$$
+\bar{X} = \frac{\sum_{x_i in X}x_i}{\left\vert X\right\vert} = 
+\begin{bmatrix}
+    0 & \frac{3}{2}
+\end{bmatrix}
+$$
+
+\subsection{Part b}
+$$
+cov(X) = E\left[(X_i - \bar X_i)(X_j - \bar X_j)\right] = E\left[X_iX_j\right] - \bar X_i\bar X_j
+$$
+This formula applies if this data is exact data. If it was some sample data, we would need to correct the 
+bias to correctly predict the whole dataset covariance (hopefully without bias).
+Because the statement does not specify whether this is a sample of a larger dataset or not,
+we will use no correction and apply the previous formula.
+\\
+Hence:
+$$
+cov(X) = \begin{bmatrix}
+            4.5 & 5.5\\
+            5.5 & 8.75
+        \end{bmatrix}
+$$
+
+
 \end{document}
