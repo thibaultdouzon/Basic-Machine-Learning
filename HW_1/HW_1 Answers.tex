@@ -1,3 +1,4 @@
+
 \documentclass[a4paper, 10pt]{article}
 
 \usepackage[english]{babel}
@@ -9,6 +10,8 @@
 
 \usepackage{comment}
 \usepackage{todonotes}
+
+\usepackage{amsmath}
 
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -162,6 +165,81 @@ $$
 $$
 
 \subsection{Part c}
+$$
+\frac{\partial\sigma}{\partial x_1} = \frac{\partial\sigma}{\partial y} \times \frac{\partial y}{\partial x_1}
+$$
+$$
+\frac{\partial\sigma}{\partial x_1} = \left(\sigma \times (1 - \sigma)\right) \times w_1
+$$
+Hence:
+$$
+\frac{\partial\sigma}{\partial x_1}(y) = \sigma(y) (1-\sigma(y) \times w_1
+$$
 
-Hey this a new line
+\subsection{Part d}
+Same as in Part c:
+\\
+For $w_1$
+$$
+\frac{\partial\sigma}{\partial w_1} = \frac{\partial\sigma}{\partial y} \times \frac{\partial y}{\partial w_1}
+$$
+$$
+\frac{\partial\sigma}{\partial w_1} = \left(\sigma \times (1 - \sigma)\right) \times x_1
+$$
+Hence:
+$$
+\frac{\partial\sigma}{\partial w_1}(y) = \sigma(y) (1-\sigma(y) \times x_1
+$$
+\\
+Same procedure for $w_2$ and $w_0$:\\
+For $w_2$
+$$
+\frac{\partial\sigma}{\partial w_2}(y) = \sigma(y) (1-\sigma(y) \times x_2
+$$
+\\
+For $w_0$
+$$
+\frac{\partial\sigma}{\partial w_0}(y) = \sigma(y) (1-\sigma(y) \times 1
+$$
+\\
+Finally we can compute the gradient:
+$$
+\nabla_w\sigma(y) = \begin{bmatrix}
+                        \frac{\partial\sigma}{\partial w_0}\\\\
+                        \frac{\partial\sigma}{\partial w_1}\\\\
+                        \frac{\partial\sigma}{\partial w_2}
+                    \end{bmatrix}(y) = 
+                    \begin{bmatrix}
+                        \sigma(y) (1-\sigma(y)\\\\
+                        \sigma(y) (1-\sigma(y)) x_1\\\\
+                        \sigma(y) (1-\sigma(y)) x_2
+                    \end{bmatrix} =
+                    \sigma(y)(1-\sigma(y))x
+$$
+Where $x =  \begin{bmatrix}
+            1 & x_1 & x_2
+            \end{bmatrix}^\mathsf{T}$
+
+\subsection{Part e}
+When $x_1 > 0$, if $w_1 \gg 1$ (and assuming $w_1$ larger than $w_0$ and $w_2$) then $y = w_0 + x_1w_1 + x_2w_2 \gg 1$
+\\
+Then what we showed in Part b applies:
+$$
+\lim_{y\to\infty} \frac{\partial\sigma}{\partial w_1}(y) = \lim_{y\to\infty} \sigma(y) (1-\sigma(y)) x_1 = 0 \times x_1 = 0
+$$
+\\
+When $x_1 < 0$, under the same assumptions, we have $\lim_{w_1\to\infty}y = -\infty$. That's why we first need to find the value of $\lim_{y\to -\infty}\sigma^\prime(y)$
+$$
+\lim_{y\to -\infty}\sigma(y) = \lim_{y\to -\infty} \frac{1}{1+e^{-y}} = 0
+$$
+$$
+\lim_{y\to -\infty}\sigma^\prime(y) = \lim_{y\to -\infty} \sigma(y)(1-\sigma(y))=0
+$$
+Then
+$$
+\lim_{y\to -\infty}\frac{\partial\sigma}{\partial w_1}(y) = \lim_{y\to -\infty} \sigma^\prime(y) \times x_1 = 0 \times x_1 = 0
+$$
+
+\section{Exercise 3}
+\subsection{Part a}
 \end{document}
