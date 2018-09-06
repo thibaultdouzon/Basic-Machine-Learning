@@ -276,5 +276,27 @@ $$
 corr(X_1, X_2) = \frac{cov(X_1, X_2)}{\sigma(X_1)\sigma(X_2)} \approx \frac{5.5}{2.12\times 2.96} = 0.87
 $$
 
+\subsection{Part d}
+The eigenvalues of the covariance matrix are:
+$$
+\lambda_0 \approx 0.7288 \quad , \quad u_0 \approx \begin{bmatrix}
+                                            -0.8247\\
+                                            0.5655
+                                          \end{bmatrix}
+$$
+$$
+\lambda_1 \approx 12.5212 \quad , \quad u_1 \approx \begin{bmatrix}
+                                            -0.5655\\
+                                            -0.8247
+                                          \end{bmatrix}
+$$
+We can check they verify this identity:
+$$
+A \cdot u_i = \lambda_i
+$$
+
+If we transformed the data points into coordinates with respect to
+the eigen vectors, then the covariance matrix should be diagonal. And 
+the values inside the diagonal should be the eigenvalues.
 
 \end{document}
