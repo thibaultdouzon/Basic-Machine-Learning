@@ -19,9 +19,33 @@
 
 \usepackage{hyperref}
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 \title{Homework Assignment N°2}
 \author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
-\date{September 4th, 2018}
+\date{September 12th, 2018}
 
 
 \begin{document}
@@ -32,4 +56,30 @@
 \tableofcontents
 \pagebreak
 
+\section{Exercise 2: Logistic classification \& discrimination}
+
+\subsection{Part a}
+Initialize $w_0$ ?
+\begin{enumerate}
+    \item Some fixed $w_0$ like $\begin{bmatrix}0 & 0 & \cdots & 1\end{bmatrix}$
+    \item Some computation around the dataset like the mean: $w_0 = \frac{1}{N}\sum_{i=1}^N x_i$
+    \item Some random vector
+\end{enumerate}
+How to learn: for batch learning use this equation at each step
+$$
+w_{n+1} = w_n - \eta \nabla E(w_n) = w_n - \eta \sum_{n=1}^{N}\left(y(n)-t_n\right)x_n
+$$
+How to stop the iterative process ?
+\begin{enumerate}
+\item Stop when the norm of the difference vector is low: $\Delta_n = \frac{\left\Vert w_{n+1} - w_n\right\Vert}{\left\Vert w_n \right\Vert} < \epsilon$
+\item Stop after fixed number of iteration
+\item Stop when a threshold error is reached: $E(w_n) < \epsilon $
+\item More complicated criterion ?
+\end{enumerate}
+
+\begin{lstlisting}
+# Some python code
+\end{lstlisting}
+
 \end{document}
+
