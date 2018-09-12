@@ -62,7 +62,7 @@
 Initialize $w_0$ ?
 \begin{enumerate}
     \item Some fixed $w_0$ like $\begin{bmatrix}0 & 0 & \cdots & 1\end{bmatrix}$
-    \item Some computation around the dataset like the mean: $w_0 = \frac{1}{N}\sum_{i=1}^N x_i$
+    \item Some computation around the dataset like the mean: $w_0 = \frac{1}{N}\sum_{i=1}^N x_i$, concatenated with a constant.
     \item Some random vector
 \end{enumerate}
 How to learn: for batch learning use this equation at each step
@@ -72,14 +72,40 @@ $$
 How to stop the iterative process ?
 \begin{enumerate}
 \item Stop when the norm of the difference vector is low: $\Delta_n = \frac{\left\Vert w_{n+1} - w_n\right\Vert}{\left\Vert w_n \right\Vert} < \epsilon$
+\\
+This is a commonly used criterion that stops the process when the steps we take are getting small compared to our current result.
 \item Stop after fixed number of iteration
+\\
+This ensures we won't enter in a infinite non-convergent process. 
 \item Stop when a threshold error is reached: $E(w_n) < \epsilon $
-\item More complicated criterion ?
+\\
+This is actually a bad idea because most of the time we can't be certain it is possible to reach such threshold on the error.
+It would result in an infinite process.
+\end{enumerate}
+Our algorithm goes as follows:
+\begin{enumerate}
+    \item Chose $\epsilon$, $N$ and $\eta$ respectivelly for precision, maximum number of iterations and speed convergency.
+    \item Set current error $\Delta$ to $+\infty$ and $n$ to $0$
+    \item Chose the initial discriminant: $w_{current}$. WE NEED TO CHOSE THE METHOD ! 
+    \item While $\Delta > \epsilon \wedge n < N$ do
+    \begin{enumerate}
+        \item Compute and store next discriminant $w_{next}$:
+$$
+w_{next} = w_{current} - \eta \sum_{n=1}^{N}\left(\sigma({w_{current}}^\top x_n)-t_n\right)x_n
+$$
+        \item Compute and store the new error $\Delta$:
+$$
+\Delta = \frac{\left\Vert w_{next} - w_{current}\right\Vert}{\left\Vert w_{current} \right\Vert}
+$$
+        \item Prepare for next iteration: store $w_{next}$ in place of $w_{curren}$ and increment $n$
+    \end{enumerate}
+    \item If $\Delta > \epsilon$, it means we have not converged enough towards the limit. We should consider increasing N OR using another algorithm for convergence (eg. Newton-Raphson)
+    \item Result is stored in $w_{current}$, number of steps in $n$. 
 \end{enumerate}
 
-\begin{lstlisting}
-# Some python code
-\end{lstlisting}
 
 \end{document}
 
+\begin{lstlisting}
+    # Some python code
+\end{lstlisting}
