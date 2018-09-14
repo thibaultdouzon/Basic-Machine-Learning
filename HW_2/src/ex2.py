@@ -13,7 +13,7 @@ def ex2_b():
     w = np.array([1,2,2])
     x = np.array([-1,1])
     x_wide = np.concatenate(([1], x))
-    t = -1 # X is on the + side + is wrongly categorised -> t = -1
+    t = 0 # X is on the + side + is wrongly categorised -> t = -1
     eta = 0.6
 
     w_n = w - eta * (sigma(w.dot(x_wide)) - t) * x_wide
@@ -21,9 +21,12 @@ def ex2_b():
     plt.plot(*x, 'Xr')
     plot_w(w)
     plot_w(w_n, 'r')
-    plt.show()
-    
+    plt.draw()    
     print(*w_n)
+    print(sigma(w.dot(x_wide)))
+    print(sigma(w_n.dot(x_wide)))
+
+    plt.show()
 
 def main():
     ex2_b()
