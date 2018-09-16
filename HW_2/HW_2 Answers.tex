@@ -121,7 +121,7 @@ First important thing to notice is that the point $x=\begin{bmatrix}-1 & 1\end{b
 We define $\bar{x} = \begin{bmatrix}1 & -1 & 1\end{bmatrix}$ thus it means that when we compute 
 $w^\top \bar{x}$ the sign of the result is incorrect.
 \\
-In our case, $w^\top \bar{x} = 1$, thus the real class of $x$ is $0$.
+In our case, $w^\top \bar{x} = 1 >0$, thus the real class of $x$ is $0$.
 \\
 The formula to update the weights is the following:
 $$
@@ -149,6 +149,18 @@ the method of gradient descent ?
     \item $w_{n} = \eta w_{n} - \nabla E(w_{n+1})$
 \end{enumerate}
 \subsection{Second MCQ}
+The second question verifies the student understood well what is implied behind 
+the omnipresent formula $w^\top x$ and each of its components.
+\\
+Q: When learning in a $k$-dimensions space, knowing that we compute the class of $x$
+by the following formula $C(x) = h(w^\top x + w_0)$ where $h$ is the heaviside function. What are
+the ranges of $w$ and $x$ ?
+\begin{enumerate}
+    \item $\begin{array}{cccc}range(w) = k & & & range(x) = k\end{array}$
+    \item $\begin{array}{cc}range(w) = k+1 & range(x) = k\end{array}$
+    \item $\begin{array}{cccc}range(w) = k & & & range(x) = k+1\end{array}$
+    \item $\begin{array}{cc}range(w) = k+1 & range(x) = k+1\end{array}$
+\end{enumerate}
 \end{document}
 
 \begin{lstlisting}

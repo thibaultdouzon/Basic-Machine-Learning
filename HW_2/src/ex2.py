@@ -13,7 +13,7 @@ def ex2_b():
     w = np.array([1,2,2])
     x = np.array([-1,1])
     x_wide = np.concatenate(([1], x))
-    t = 0 # X is on the + side + is wrongly categorised -> t = -1
+    t = 0 # X is on the + side + is wrongly categorised -> t = 0
     eta = 0.6
 
     w_n = w - eta * (sigma(w.dot(x_wide)) - t) * x_wide

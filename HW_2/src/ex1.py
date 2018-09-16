@@ -46,7 +46,8 @@ def part_a():
 def part_b():
     def batch(w, x, c):
         eta = 0.5
-        w_new = w + eta*np.sum([xi*ci for xi, ci in zip(x, c)])
+        w_new = w + eta*np.sum([np.concatenate(([1],xi))*ci for xi, ci in zip(x, c)], axis=0)
+        print(w, eta*np.sum([np.concatenate(([1],xi))*ci for xi, ci in zip(x, c)], axis=0))
         return w_new
     w = np.array([1,2,1])
     x = np.array([[2,3],
@@ -57,7 +58,7 @@ def part_b():
 
     plot_disc(w)
     plot_disc(w_new, 'g')
-    plt.plot(*x[0], 'Xb', *x[1], 'or')
+    plt.plot(*x[0], 'Xb', *x[1], 'og')
     plot_heat(w_new)
     plt.legend(['discriminant w', 'discriminant w_new', 'point(2,3)', 'point(-2,0)'])
 
@@ -101,7 +102,7 @@ def part_d():
 def main():
     # part_a()
     part_b()
-    part_d()
+    # part_d()
     pass
 
 if __name__ == '__main__':
