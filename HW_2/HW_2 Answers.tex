@@ -1,34 +1,23 @@
 
 \documentclass[a4paper, 10pt]{article}
-
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
-
 \setlength{\marginparwidth}{2cm}
-
 \usepackage{comment}
 \usepackage{todonotes}
-
 \usepackage{amsmath}
 \usepackage{amssymb}
-
 \usepackage{xcolor}
 \usepackage{graphicx}
 \graphicspath{ {./img/} }
-
 \usepackage{hyperref}
-
-\usepackage{enumitem}
-
 \usepackage{listings}
 \usepackage{color}
-
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-
 \lstset{frame=tb,
   language=Python,
   aboveskip=3mm,
@@ -45,24 +34,69 @@
   breakatwhitespace=true,
   tabsize=3
 }
-
 \title{Homework Assignment N°2}
 \author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
 \date{September 12th, 2018}
-
-
 \begin{document}
 \maketitle
-
 \pagebreak
-
 \tableofcontents
 \pagebreak
+\section{Exercise 1: Perceptron Learning Rule}
+\subsection{Part a} 
+To have an idea of what our perceptron looks like, let's plot its discriminant line 
+and the two data points. 
+\\ 
+\includegraphics[scale=0.6]{ex1_a.png} 
+\\ 
+We can also compute the prediction of the model for the two datapoints: 
+$$ 
+\text{prediction}_1 = sign(w^\top x_1) = sign(8) = 1 \ne -1 
+$$ 
+$$ 
+\text{prediction}_2 = sign(w^\top x_2) = sign(-3) = -1 \ne 1 
+$$ 
+So our two datapoints are missclassified, now we can say that on the plot below 
+area in red (upper right of the plot) represents the area classified as class $1$ by our model and 
+blue (lower left part of the plot) is for class $-1$ 
+\subsection{Part b} 
+After one iteration of a batch learning algorithm we get the following new discriminant: 
+$$ 
+w_{new} = w_{old} + \eta\sum_{i=1}^N x_ic_i 
+$$ 
+$$ 
+w_{new} = \begin{bmatrix}1 & 0 & -0.5\end{bmatrix} 
+$$ 
+And now, both data points are acorrectly classified by the new model: 
+\\ 
+\includegraphics[scale=0.6]{ex1_b.png} 
+\subsection{Part c} 
+Learning is an iterative process. In a batch version learning, at each iteration we compute a new model 
+based on the whole dataset whereas in a stochastic version, at each iteration we pick up a single data in the dataset 
+and we base our computation on this data point only. 
+\\ 
+When the dataset becomes too big, the computation time of a batch iteration is going to need ressources 
+proportional to the size of the dataset and a stochastic iteration will always use the same amount of ressources 
+independantly of the size of the dataset. 
+\subsection{Part d} 
+The formula to compute the new discriminant with a stochastic algorithm is the following:
+$$
+w_{new} = w_{old}+\eta x_i c_i
+$$
+We repeat it for each data in the dataeset, updating the discriminant at each iteration.
+\\
+When applying the stochastic algorithm, we get the following (different) result: 
+$$ 
+w_{new} = \begin{bmatrix}1 & -0.4 & -0.8\end{bmatrix} 
+$$ 
+And again, both points are correctly classified after the complete sweep: 
+\\ 
+\includegraphics[scale=0.6]{ex1_d.png} 
 
 \section{Exercise 2: Logistic classification \& discrimination}
 From now we will use $\sigma(x)=\frac{1}{1+e^{-x}}$
 \subsection{Part a}
-\begin{itemize}[label=$\square$]
+\begin{itemize}
     \item Initialize $w_0$ ?
     \begin{enumerate}
         \item Some fixed $w_0$ like $\begin{bmatrix}0 & 0 & \cdots & 1\end{bmatrix}$
@@ -133,6 +167,31 @@ w_{new} \approx \begin{bmatrix}0.5614 & 2.4386 & 1.5614\end{bmatrix}
 $$
 
 
+\section{Exercise 3: Error function \& Gradient descent}
+\subsection{Part a}
+If $y_n = \sigma(w^\top x_n)$ then:
+$$
+E(w) = \sum_{n=1}^N (t_n-y_n)^4
+$$
+$$
+\nabla_w E(w) = -4\sum_{n=1}^N (t_n-y_n)^3(y_n (1-y_n))x_n
+$$
+
+\subsection{Part b}
+$$
+E(w) = \sum_{n=1}^N \vert t_n - y_n \vert
+$$
+Computing the gradient of an absolute value implies to derivate an
+absolute value function which  is not $C^1$. We won't be able to assign 
+a value to the gradient if the value inside the absolute function is 0.
+$$
+\nabla_w E(w) = \sum_{n=1}^N \left\{ \begin{array}{ll}  
+                    -y_n(1-y_n)x_n & \text{if $t_n-y_n > 0$}
+                \\ 
+                    y_n(1-y_n)x_n & \text{if $t_n-y_n < 0$}
+                        \end{array}
+                \right.
+$$
 
 \section{Exercise 4: MCQ}
 \subsection{First MCQ}
@@ -162,7 +221,6 @@ the ranges of $w$ and $x$ ?
     \item $\begin{array}{cc}range(w) = k+1 & range(x) = k+1\end{array}$
 \end{enumerate}
 \end{document}
-
 \begin{lstlisting}
     # Some python code
 \end{lstlisting}

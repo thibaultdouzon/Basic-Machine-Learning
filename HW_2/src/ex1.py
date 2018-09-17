@@ -16,6 +16,7 @@ def sigma(a):
     return 1./(1.+np.exp(-a))
 
 def plot_heat(w):
+    
     """ 
     Plot a weight vector w = [w_0,w_1,w_2] as a colour map
     """
