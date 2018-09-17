@@ -1,31 +1,22 @@
 
 \documentclass[a4paper, 10pt]{article}
-
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
-
 \setlength{\marginparwidth}{2cm}
-
 \usepackage{comment}
 \usepackage{todonotes}
-
 \usepackage{amsmath}
-
 \usepackage{xcolor}
 \usepackage{graphicx}
 \graphicspath{ {./img/} }
-
 \usepackage{hyperref}
-
 \usepackage{listings}
 \usepackage{color}
-
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-
 \lstset{frame=tb,
   language=Python,
   aboveskip=3mm,
@@ -42,117 +33,59 @@
   breakatwhitespace=true,
   tabsize=3
 }
-
 \title{Homework Assignment N°2}
 \author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
 \date{September 12th, 2018}
-
-
 \begin{document}
 \maketitle
-
 \pagebreak
-
 \tableofcontents
 \pagebreak
 \section{Exercise 1: Perceptron Learning Rule}
-\subsection{Part a}
-
 \subsection{Part a} 
-
 To have an idea of what our perceptron looks like, let's plot its discriminant line 
-
 and the two data points. 
-
 \\ 
-
 \includegraphics[scale=0.6]{ex1_a.png} 
-
 \\ 
-
 We can also compute the prediction of the model for the two datapoints: 
-
 $$ 
-
 \text{prediction}_1 = sign(w^\top x_1) = sign(8) = 1 \ne -1 
-
 $$ 
-
 $$ 
-
 \text{prediction}_2 = sign(w^\top x_2) = sign(-3) = -1 \ne 1 
-
 $$ 
-
 So our two datapoints are missclassified, now we can say that on the plot below 
-
 area in red (upper right of the plot) represents the area classified as class $1$ by our model and 
-
 blue (lower left part of the plot) is for class $-1$ 
-
-
-
 \subsection{Part b} 
-
 After one iteration of a batch learning algorithm we get the following new discriminant: 
-
 $$ 
-
 w_{new} = w_{old} + \eta\sum_{i=1}^N x_ic_i 
-
 $$ 
-
 $$ 
-
-w_{new} = \begin{bmatrix}-2.5 & -1.5 & -2.5\end{bmatrix} 
-
+w_{new} = \begin{bmatrix}1 & 0 & -0.5\end{bmatrix} 
 $$ 
-
 And now, both data points are acorrectly classified by the new model: 
-
 \\ 
-
 \includegraphics[scale=0.6]{ex1_b.png} 
-
-
-
 \subsection{Part c} 
-
 Learning is an iterative process. In a batch version learning, at each iteration we compute a new model 
-
 based on the whole dataset whereas in a stochastic version, at each iteration we pick up a single data in the dataset 
-
 and we base our computation on this data point only. 
-
 \\ 
-
 When the dataset becomes too big, the computation time of a batch iteration is going to need ressources 
-
 proportional to the size of the dataset and a stochastic iteration will always use the same amount of ressources 
-
 independantly of the size of the dataset. 
-
-
-
 \subsection{Part d} 
-
 When applying the stochastic algorithm, we get the following (different) result: 
-
 $$ 
-
 w_{new} = \begin{bmatrix}1 & -0.4 & -0.8\end{bmatrix} 
-
 $$ 
-
 And again, both points are correctly classified after the complete sweep: 
-
 \\ 
-
 \includegraphics[scale=0.6]{ex1_d.png} 
-
-
 \section{Exercise 2: Logistic classification \& discrimination}
-
 \subsection{Part a}
 Initialize $w_0$ ?
 \begin{enumerate}
@@ -197,10 +130,7 @@ $$
     \item If $\Delta > \epsilon$, it means we have not converged enough towards the limit. We should consider increasing N OR using another algorithm for convergence (eg. Newton-Raphson)
     \item Result is stored in $w_{current}$, number of steps in $n$. 
 \end{enumerate}
-
-
 \end{document}
-
 \begin{lstlisting}
     # Some python code
 \end{lstlisting}
