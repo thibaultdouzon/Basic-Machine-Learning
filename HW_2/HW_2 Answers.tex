@@ -185,10 +185,10 @@ Computing the gradient of an absolute value implies to derivate an
 absolute value function which  is not $C^1$. We won't be able to assign 
 a value to the gradient if the value inside the absolute function is 0.
 $$
-\nabla_w E(w) = \sum_{n=1}^N \left\{ \begin{array}{ll}  
-                    -y_n(1-y_n)x_n & \text{if $t_n-y_n > 0$}
+\nabla_w E(w) = \sum_{n=1}^N y_n(1-y_n)x_n \times \left\{ \begin{array}{ll}  
+                    -1 & \text{if $t_n-y_n > 0$}
                 \\ 
-                    y_n(1-y_n)x_n & \text{if $t_n-y_n < 0$}
+                    1 & \text{if $t_n-y_n < 0$}
                         \end{array}
                 \right.
 $$
