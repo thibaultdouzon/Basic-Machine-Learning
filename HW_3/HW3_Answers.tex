@@ -1,0 +1,80 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\setlength{\marginparwidth}{2cm}
+
+\usepackage{comment}
+\usepackage{todonotes}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{enumitem}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{ {./img/} }
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+    language=Python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+}
+
+\title{Homework Assignment N°3}
+\author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
+\date{September 18th, 2018}
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Exercise 1: K-CV, under \& over-fitting}
+
+\subsection{Part a}
+\begin{itemize}[label=$\square$]
+    \item Under-fitting: The model does not stick enough to the data.
+
+    $\rightarrow$ not complex enough: this family of models can't represent the underlying model
+    \\
+    $\rightarrow$ did not learn enough
+    \\
+    $\rightarrow$ we can say it's under-fitting when both error on data and error on test sample are high
+
+    \item Over-fitting: The model sticks too much to the data, it won't generalize well on never met data
+
+    $\rightarrow$ too complex for the underlying model. We try to interpret small changes as if they were representing something but is in reality only noise
+    \\
+    $\rightarrow$ learned too much from the data
+    \\
+    $\rightarrow$ we can say it's over-fitting when data error is low but test sample error is hight
+    \\
+    $\rightarrow$ another symptom of over-fitting is also skyscraping high values for parameters of the model
+    
+\end{itemize}
+\end{document}
