@@ -86,6 +86,8 @@ def main():
     plt.plot(np.log(error_r))
     plt.plot(np.log(error_test_r))
     plt.legend(['Error on learning data', 'Error on test data'])
+    plt.xlabel('Degree of polynomial')
+    plt.ylabel('Log of the Error')
     plt.show()
 
     plot_poly(w_l[0])
