@@ -3,7 +3,7 @@ from scipy.linalg import lu
 from matplotlib import pyplot as plt
 import random
 
-f = lambda x: x**3 +2*x 
+f = lambda x: 2*x**3 - 2*x 
 
 
 def compute_error(w, x, y):
@@ -63,18 +63,19 @@ def plot_poly(w):
 
 
 def main():
-    x,y = gene_random_data(1542)
-    x_test, y_test = gene_random_data(23678)
+    x,y = gene_random_data(50)
+    x_test, y_test = gene_random_data(50)
 
     plot_f()
     plt.scatter(x,y)
     plt.scatter(x_test,y_test)
+    plt.legend(['Underlying curve','Training data', 'Test Data'])
     plt.show()
     
     error_r = []
     error_test_r = []
     w_l = []
-    for dim in range(30):
+    for dim in range(20):
         w = poly_learn(x, y, dim)
         w_l += [w]
         error_r += [compute_error(w, x, y)]
@@ -82,12 +83,26 @@ def main():
         error_test_r += [compute_error(w, x_test, y_test)]
         print(error_test_r[-1])
     
-    plt.plot(error_r)
-    plt.plot(error_test_r)
+    plt.plot(np.log(error_r))
+    plt.plot(np.log(error_test_r))
+    plt.legend(['Error on learning data', 'Error on test data'])
     plt.show()
 
-    plot_poly(w_l[error_test_r.index(max(error_test_r))])
+    plot_poly(w_l[0])
     plt.scatter(x,y)
+    plt.title('Underfitting')
+    plt.show()
+
+    plot_poly(w_l[3])
+    plt.scatter(x,y)
+    plt.title('Good fit')
+    plt.show()
+
+    plot_poly(poly_learn(x,y,40))
+    plt.scatter(x,y)
+    plt.title('Overfitting')
+    plt.show()
+
     print(w_l[error_test_r.index(max(error_test_r))])
 
     pass
