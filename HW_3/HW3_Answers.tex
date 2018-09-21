@@ -193,7 +193,7 @@ $$
 \text{TP}_{\text{rate}} = \frac{\text{TP}}{\text{TP}+\text{FN}} = \frac{\theta \text{P}}{\theta \text{P} +(1-\theta)\text{P}} = \theta
 $$
 $$
-\text{FP}_{\text{rate}} = \frac{\text{FN}}{\text{FP}+\text{TN}} = \frac{\theta \text{N}}{\theta \text{N} + (1-\theta)\text{N}} = \theta
+\text{FP}_{\text{rate}} = \frac{\text{FP}}{\text{FP}+\text{TN}} = \frac{\theta \text{N}}{\theta \text{N} + (1-\theta)\text{N}} = \theta
 $$
 For a random classifier such as this one, TP and FP rate do not depend
 on P and N but only on $\theta$.
@@ -231,6 +231,41 @@ $$
 $$
 
 \subsection{Part d}
-The equal error rate points lay on the $x=y$ curve, exactly like our random classifier.
-This ROC curve seems to only have two fixed points: $(0,0)$ and $(1,1)$
+Having the same error rate on positive and negative examples means having the following:
+$$
+\frac{\text{FN}}{\text{TP}+\text{FN}} = \frac{\text{FP}}{\text{TN}+\text{FP}}
+$$
+We compute them by taking only the positive (resp negative) elements from the data
+and computing the error rate on this particular set.
+Now let's link those two parts to the TP and FP rates. The right part is exactly the expression
+of the FP rate. The left one is not exaclty the TP rate:
+$$
+\frac{\text{FN}}{\text{TP}+\text{FN}} = \frac{\text{TP}+\text{FN} - \text{TP}}{\text{TP}+\text{FN}} = 1 - \frac{\text{TP}}{\text{TP}+\text{FN}}
+$$
+$$
+\frac{\text{FN}}{\text{TP}+\text{FN}} = 1 - \text{TP}_\text{rate}
+$$
+The first equation now becomes:
+$$
+1 - \text{TP}_\text{rate} = \text{FP}_\text{rate}
+$$
+To solve it graphicly, we can slightly change it to the following:
+$$
+\text{TP}_\text{rate} + \text{FP}_\text{rate} = 1
+$$
+Now all we have to do is determine all points on the plane whose coordinates add up to one.
+This is very easy, it is the line passing through $(0,1)$ and $(1,0)$: the antidiagonal . What we can do is 
+draw this line over the ROC curve and the point where both intersect is the point where
+the error rate is the same for positive and negative data. 
+\\
+\includegraphics{ex2d}
+\\
+From this picture, we can now measure the coordinates of the intersection point and the axis with pixel precision.
+We get the following result:
+$$
+\text{P}_\text{intersection} \approx (0.233, 0.766)
+$$
+We can check they correctly add up to 1, with little error due to rounding and measure precision.
+
+\section{Exercise 3: Logistic classification \& Regularization}
 \end{document}
