@@ -147,10 +147,10 @@ call the validation set the holdout set.
 WEIRD test / validation
 \\
 livre ->    validation = à chaque étape, si l'E augmente -> stop training
- \\           test = à la fin pour choisir le meilleur
+\\          test = à la fin pour choisir le meilleur
 \\
 diapos ->   validation = ???
-   \\         test = à chaque étape si l'E augmente -> stop
+\\          test = à chaque étape si l'E augmente -> stop
 
 \subsection{Part c}
 We use K-fold cross-validation because we want to use as much data as possible for training.
@@ -190,11 +190,47 @@ and the rows represents the reality of the data. In the heading, the probability
 \end{center}
 We deduce the following from the previous table:
 $$
-\text{TP}_{\text{rate}} = \frac{TP}{TP+FP+TN+FN} = \frac{\theta P}{P+N}
+\text{TP}_{\text{rate}} = \frac{\text{TP}}{\text{TP}+\text{FN}} = \frac{\theta \text{P}}{\theta \text{P} +(1-\theta)\text{P}} = \theta
 $$
 $$
-\text{FP}_{\text{rate}} = \frac{FN}{TP+FP+TN+FN} = \frac{\theta N}{P+N}
+\text{FP}_{\text{rate}} = \frac{\text{FN}}{\text{FP}+\text{TN}} = \frac{\theta \text{N}}{\theta \text{N} + (1-\theta)\text{N}} = \theta
+$$
+For a random classifier such as this one, TP and FP rate do not depend
+on P and N but only on $\theta$.
+
+\subsection{Part b}
+From the previous question, we can draw the ROC curve of the classifier.
+Because we have the following identity $\text{TP}_\text{rate} = \text{FP}_\text{rate} = \theta$,
+when we plot the $\text{TP}_\text{rate}$ in terms of the $\text{FP}_\text{rate}$ we get
+the identity function (because both quantities are always equal to each other).
+\\
+\includegraphics{ex2b}
+\\
+This is a well known result: a random classifier has a ROC curve that
+splits the ROC space in two.
+
+\subsection{Part c}
+Now it is easy to compute the AUC, this ROC curve is a line
+following the diagonal of the base square, thus the are under the curve is
+half the area of the square.
+$$
+\text{AUC} = \frac{1}{2}
+$$
+We could get to the same result using calculus: the underlying function
+is $f(x) = x$.
+\\
+Calculus gives us the formula for the AUC:
+$$
+\text{AUC} = \int_0^1 f(x) dx
+$$
+$$
+\text{AUC} = \int_0^1 x dx = \left[\frac{x^2}{2} \right]_0^1 
+$$
+$$
+\text{AUC} = \frac{1}{2}
 $$
 
-
+\subsection{Part d}
+The equal error rate points lay on the $x=y$ curve, exactly like our random classifier.
+This ROC curve seems to only have two fixed points: $(0,0)$ and $(1,1)$
 \end{document}
