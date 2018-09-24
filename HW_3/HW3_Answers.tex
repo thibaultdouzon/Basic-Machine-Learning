@@ -136,21 +136,10 @@ the more noisy is our testing, and the more probable a model can fall in over-fi
 Indeed, nothing tells us the the best model on the test set will generalize well and isn't 
 over-fitting the test sample also.
 \\
-To prevent us from over-fitting the data that aren't in the learning set, we need
-validation set, to finally evaluate the performance of our model on brand new data.
-This validation set will allow us to chose the best hyperparameters for our models and chose the
-best model between the trained ones.
-\\
-The terms "validation" and "test" are very ambiguous and often interchanged and some
-call the validation set the holdout set.
-
-WEIRD test / validation
-\\
-livre ->    validation = à chaque étape, si l'E augmente -> stop training
-\\          test = à la fin pour choisir le meilleur
-\\
-diapos ->   validation = ???
-\\          test = à chaque étape si l'E augmente -> stop
+This over-fitting on the test dataset situation could happen if we try to guess the best hyperparameters of
+the model using the test set. Learning and then filtering the best hyperparameters using the test set
+multiple times recursively will result in a selection of models that can overfit the test data and thus 
+provide in the end an over-fit model. That's why a different set is necessary.
 
 \subsection{Part c}
 We use K-fold cross-validation because we want to use as much data as possible for training.
@@ -165,6 +154,8 @@ Pros:
     different models with different parameters K times each and pick the best at the end
     (the one with the minimal mean of the error on the evaluation part remaining)
     \item It provides an accurate estimation of the performance of the model
+    \item Offers a viable solution when training data is scarce. Doing N splits will provide a a good estimation of 
+    performance.
 \end{itemize}
 Cons:
 \begin{itemize}
@@ -172,6 +163,7 @@ Cons:
     will need 10 different trainings and thus it will last 10 times more to train.
     \item The number of folds we make is another parameter: when the dataset is small we can split in
     as many sets as the number of data, but it's too computer intensive when the dataset gets large.
+
 \end{itemize}
 \section{Exercise 2: ROC curve}
 \subsection{Part a}
