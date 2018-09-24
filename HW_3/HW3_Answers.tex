@@ -207,7 +207,7 @@ the identity function (because both quantities are always equal to each other).
 \includegraphics{ex2b}
 \\
 This is a well known result: a random classifier has a ROC curve that
-splits the ROC space in two.
+splits the ROC space in two equal parts.
 
 \subsection{Part c}
 Now it is easy to compute the AUC, this ROC curve is a line
@@ -263,10 +263,189 @@ the error rate is the same for positive and negative data.
 From this picture, we can now measure the coordinates of the intersection point and the axis with pixel precision.
 We get the following result:
 $$
-\text{P}_\text{intersection} \approx (0.233, 0.766)
+\text{P}_\text{intersection} \approx (\text{FP}=0.233, \text{TP}=0.766)
 $$
 We can check they correctly add up to 1, with little error due to rounding and measure precision.
 
 \section{Exercise 3: Logistic classification \& Regularization}
+First let's determine the real label of $x$. We know that the current model misclassfies it,
+so if we compute the prediction of the model for $x$, we get the wrong label and thus we can 
+deduct the real label.
+\\
+The easiest way is the compute the quantity $w^\top \bar{x}$, with $\bar{x} = (1,\ x_1,\ x_2,\ x_3)$, and decide its predicted label with the following rule:
+$$
+\text{Label}_\text{predicted} = \left\{ \begin{array}{ll}  
+                                    0 & \text{if $w^\top \bar{x} < 0$}
+                                    \\ 
+                                    1 & \text{if $w^\top \bar{x} > 0$}
+                                        \end{array}
+                                \right.
+$$
+Labels are $0$ and $1$ because we are doing logistic regression and we use the sigmoïd function.
+\\
+In our case, $w^\top \bar{x} = -1 <0$, thus the predicted label is $0$, and the real label of $x$ is $l=1$.
+\subsection{Part a}
+First let's apply normal stochastic gradient descent. The formula to update the weights is the following:
+$$
+w_{new} = w_{old} - \eta \nabla_w E_D(w_{old})
+$$
+Which gives the following in our case:
+$$
+w_{new} = w_{old} - \eta (\sigma({w_{old}}^\top \bar{x}) - l) \bar{x}
+$$
+When we copute this with the values given we obtain the following result which
+classifies $x$ accordingly.
+$$
+w_{new} = \begin{bmatrix}
+    0.512, & 1.512, & -2.512, & 0.977
+\end{bmatrix}
+$$
 
+If we now apply L1 regularization, we need to change our updating formula to the following:
+$$
+w_{new} = w_{old} - \eta \nabla_w E_D(w_{old}) - \lambda \nabla_w E_w(w_{old})
+$$
+Where $E_w$ represents an apriori error based on the coordinates of $w$ only. It's purpose
+is to introduce error when the coordinates of the discriminant get too big. Doing normalization
+should partially prevent our model from over-fitting but not totally.
+\\
+It is important to not penalyze our model for an important bias (first coordinate): bias is descripted inside the data.
+Thus the vector $\nabla_wE_w(w)$ should always have its first coordinate equal to $0$.
+\\
+In L1 regularization, we define ${E_1}_w(w)$, the order 1 error due to regularization, to be the following:
+$$
+{E_1}_w(w) = \sum_{i=1}^n \vert w_i \vert
+$$
+And we can deduce the vector $\nabla_w{E_1}_w(w)$ from this definition:
+$$
+\nabla_w{E_1}_w(w) = \left(\begin{array}{c}
+    0       \\
+    h(w_1)  \\
+    \vdots  \\
+    h(w_n)
+\end{array}\right)^\top
+$$
+Where $h$ is the heaviside function.
+\\
+We can now compute our new discriminant with L1 regularization based on the previous work:
+$$
+w_{new} = w_{old} - \eta (\sigma({w_{old}}^\top \bar{x}) - l) \bar{x} - \lambda \left(\begin{array}{c}
+                                                                                                0       \\
+                                                                                                h({w_{old}}_1)  \\
+                                                                                                \vdots  \\
+                                                                                                h({w_{old}}_n)
+                                                                                            \end{array}\right)^\top
+$$
+And when we compute the important terms according to the values we obtain the following:
+$$
+w_{new}^\top \approx \left(\begin{array}{c}
+    0  \\
+    1  \\
+    -2 \\
+    2
+\end{array}\right) - 0.7 \left(\begin{array}{c}
+    -0.731 \\
+    -0.731 \\
+    0.731  \\
+    1.462
+\end{array}\right) - 0.2 \left(\begin{array}{c}
+    0  \\
+    1  \\
+    -1 \\
+    1
+\end{array}\right) \approx
+\left(\begin{array}{c}
+    0.512 \\
+    1.311 \\
+    -2.311 \\
+    0.776
+\end{array}\right)
+$$
+\subsection{Part b}
+Working with L2 regularization instead of L1 will only change $\nabla_wE_w(w)$. This 
+is the term relative to the regularization. To determine what we need to put instead of the previous one,
+we define the new error due to regularization as follows:
+$$
+{E_2}_w(w) = \frac{1}{2}\sum_{i=1}^N w_i^2
+$$
+And its gradient:
+$$
+\nabla_w{E_2}_w(w) = \left(\begin{array}{c}
+    0 \\
+    w_1 \\
+    \vdots \\
+    w_N
+\end{array}\right)^\top
+$$
+We can now replace it in the update equation:
+$$
+w_{new} = w_{old} - \eta (\sigma({w_{old}}^\top \bar{x}) - l) \bar{x} - \lambda \left(\begin{array}{c}
+                                                                                    0 \\
+                                                                                    w_1 \\
+                                                                                    \vdots \\
+                                                                                    w_N
+                                                                                \end{array}\right)^\top
+$$
+$$
+w_{new}^\top \approx \left(\begin{array}{c}
+    0  \\
+    1  \\
+    -2 \\
+    2
+\end{array}\right) - 0.7 \left(\begin{array}{c}
+    -0.731 \\
+    -0.731 \\
+    0.731  \\
+    1.462
+\end{array}\right) - 0.2 \left(\begin{array}{c}
+    0  \\
+    1  \\
+    -1 \\
+    1
+\end{array}\right) \approx
+\left(\begin{array}{c}
+    0.512 \\
+    1.311 \\
+    -2.111 \\
+    0.576
+\end{array}\right)
+$$
+
+\section{Exercise 4: MCQ}
+In the following MCQs, a $\diamondsuit$ signifies this proposition is part of the right answer.
+\subsection{MCQ 1}
+This question verifies if the student understood correctly how to compute the recall
+\\
+Q: Given the following confusion matrix, compute the recall of B. Rounded up to 2 decimals.
+\begin{center}
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Actual $\backslash$ Predicted & A & B \\
+        \hline
+        A & $ 314 $ & $ 159 $ \\
+        B & $ 265 $ & $ 358 $ \\
+        \hline
+    \end{tabular}
+\end{center}
+\begin{enumerate}
+    \item $0.34$
+    \item $0.57$
+    \item $0.66$
+    \item $0.69$ $\diamondsuit$
+\end{enumerate}
+
+\subsection{MCQ 2}
+This question checks if the student understands how to interpret a ROC curve and can compare
+classifier based on their respective ROC curves.
+\\
+Q: Which of these classifiers is (are) better than a random classifier ? 
+\\
+\includegraphics{ex4}
+\\
+\begin{enumerate}
+    \item a
+    \item b $\diamondsuit$
+    \item c $\diamondsuit$
+    \item d $\diamondsuit$
+\end{enumerate}
 \end{document}
