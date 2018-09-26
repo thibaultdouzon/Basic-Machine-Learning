@@ -61,12 +61,18 @@ To show what are under and over-fitting, we will use polynomial
 regression with different degrees on sample data. We generate 
 our data points using a degree 3 polyomial and adding gaussian noise. Here is the dataset:
 \\
-\includegraphics{ex1a_curve}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex1a_curve}
+\end{figure}
 \\
 Our model minimizes the sum of the squared error. Because our underlying function is a degree 3
 polynomial, the best model we computed is the following, also degree 3:
 \\
-\includegraphics{ex1a_good}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex1a_good}
+\end{figure}
 \\
 We can see that the green line follows accordingly our dataset, without trying to go through
 every points. We can expect this model to generalize well.
@@ -80,7 +86,7 @@ every points. We can expect this model to generalize well.
     An example is our degree 0 polynomial: an horizontal line can't describe 
     correctly our underlying degree 3 polynomial:
     \\
-    \includegraphics{ex1a_under}
+    \includegraphics[scale=0.7]{ex1a_under}
     \\
     The x and y axis represent the $x$ and $y$ coordinates for our points such that
     $f(x) \approx y$.
@@ -99,7 +105,7 @@ every points. We can expect this model to generalize well.
     \\
     An example of over-fit model is our degree 20 polynomial model:
     \\
-    \includegraphics{ex1a_over}
+    \includegraphics[scale=0.7]{ex1a_over}
     \\
     As before, this plot shows the learning data and the curve of the model.
     We can see the curve tries to pass through every points even those remote from the underlying
@@ -111,7 +117,10 @@ every points. We can expect this model to generalize well.
 To better see both phenomena in one figure, we can plot the error in term of the degree of our model.
 If we do so for both training and testing dataset, we get the following plot:
 \\
-\includegraphics{ex1a_error}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex1a_error}
+\end{figure}
 \\
 On this figure we can see that the error on learning data is globally always decreasing (very steeply at the beginning, then slowly)
 when the complexity of the model increases. But the curve of the error on the testing data does not follows the same pattern: it first 
@@ -120,7 +129,10 @@ decreases up to some degree and then increases again.
 We can divide the previous figure in two areas, one represents under-fitting and the other over-fitting. And between the 
 two lays the models that may generalyze well:
 \\
-\includegraphics{ex1a_area}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex1a_area}
+\end{figure}
 \\
 As we said before, in the red area both curves decrease steeply: this is the under-fitting zone.
 In the blue one, error on learning data continue decreasing but slowly while error on testing data increases:
@@ -196,7 +208,10 @@ Because we have the following identity $\text{TP}_\text{rate} = \text{FP}_\text{
 when we plot the $\text{TP}_\text{rate}$ in terms of the $\text{FP}_\text{rate}$ we get
 the identity function (because both quantities are always equal to each other).
 \\
-\includegraphics{ex2b}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex2b}
+\end{figure}
 \\
 This is a well known result: a random classifier has a ROC curve that
 splits the ROC space in two equal parts.
@@ -250,7 +265,10 @@ This is very easy, it is the line passing through $(0,1)$ and $(1,0)$: the antid
 draw this line over the ROC curve and the point where both intersect is the point where
 the error rate is the same for positive and negative data. 
 \\
-\includegraphics{ex2d}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex2d}
+\end{figure}
 \\
 From this picture, we can now measure the coordinates of the intersection point and the axis with pixel precision.
 We get the following result:
@@ -432,7 +450,10 @@ classifier based on their respective ROC curves.
 \\
 Q: Which of these classifiers is (are) better than a random classifier ? 
 \\
-\includegraphics{ex4}
+\begin{figure}
+\centering
+	\includegraphics[scale=0.7]{ex4}
+\end{figure}
 \\
 \begin{enumerate}
     \item a
