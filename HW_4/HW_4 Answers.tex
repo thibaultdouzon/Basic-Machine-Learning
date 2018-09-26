@@ -55,8 +55,9 @@
 \pagebreak
 \section{Exercise 1: Decision Trees}
 \subsection{Part a}
+\paragraph{a}
 $0.51996$
-\subsection{Part b}
+\paragraph{b}
 entropy of the dataset: $0.991$
 \begin{center}
     \begin{tabular}{ |c|c|c|c|c|c| }
@@ -88,7 +89,7 @@ new entropy for $a_2$: $0.971\times\frac{5}{9} + 1\times\frac{4}{9} = 0.762$
 \\
 information gain of a2 $= 0.007$
 
-\subsection{Part c}
+\paragraph{c}
 Entropy for 0.5 split is: 0.9910760598382223, information gain: -1.1102230246251565e-16
 \\
 Entropy for 1.5 split is: 0.8483857803777466, information gain: 0.14269027946047563
@@ -107,14 +108,14 @@ Entropy for 7.5 split is: 0.8888888888888888, information gain: 0.10218717094933
 \\
 Entropy for 8.5 split is: 0.9910760598382223, information gain: -1.1102230246251565e-16
 
-\subsection{Part d}
+\paragraph{d}
 
 best split is a1 (information gain is 0.229)
 
-\subsection{Part e}
+\paragraph{e}
 Error rate:
 $$
-\text{error} = 1 - {max}_i [p(i\vert t)]
+\text{error}(t) = 1 - {max}_i [p(i\vert t)]
 $$
 \\
 a1: 
@@ -136,7 +137,48 @@ global classification error on a1 split: $ (1-3/5)*5/9 + (1-2/4)*4/9 = 4/9$
 Best split is the one with fewer global classification error -> a1
 
 
-\subsection{Part f}
+\paragraph{f}
+Gini :
+$$
+\text{Gini}(t) = 1 - \sum_{i=0}^{c-1} [p(i\vert t)]^2
+$$
+\\
+a1:
+\\
+Gini on node T: $1- ((3/4)^2 + (1/4)^2) = 0.375 $
+\\
+Gini on node F: $1-((4/5)^2 + (1/5)^2) = 0.320$
+\\
+Global Gini on a1 $= 0.375*4/9 + 0.320*5/9 = 0.344 $ 
+\\
+a2:
+\\
+Gini on node T: $1- ((3/5)^2 + (2/5)^2) = 0.480 $
+\\
+Gini on node F: $1- ((2/4)^2 + (2/4)^2) = 0.5 $
+\\
+Global Gini on a1 $= 0.480*5/9 + 0.5*4/9 = 0.489 $ 
+\\
+Best split is the one with fewer Gini index -> a1
+
+\subsection{Part b}
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c| }
+        \hline
+        Feature $a_1$ & low      & high     & $p_\text{low}$    & $p_\text{high}$ & Gini\\
+        \hline
+        bad          & $1$      & $3$       & $\frac{1}{4}$     & $\frac{3}{4}$ & $0.375$\\
+        \hline
+        average      & $3$      & $2$       & $\frac{3}{5}$     & $\frac{2}{5}$ & $0.480$\\
+        \hline
+        good         & $3$      & $1$       & $\frac{3}{4}$     & $\frac{1}{4}$ & $0.375$\\
+        \hline
+    \end{tabular}
+\end{center}
+Overall Gini average index for the split is: $ 5/20*0.375 + 8/20*0.480 + 7/20*0.375 = 0.417$
+
+\subsection{Part c}
+confidense interval = $[0.8191; 0.9082]$
 
 \section{Exercise 2:Classification of 3 class confusion matrix}
 \subsection{Part a}
