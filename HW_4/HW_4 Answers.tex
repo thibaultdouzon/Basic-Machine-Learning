@@ -1,0 +1,90 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\setlength{\marginparwidth}{2cm}
+
+\usepackage{comment}
+\usepackage{todonotes}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{enumitem}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{ {./img/} }
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+    language=Python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+}
+
+\title{Homework Assignment N°4}
+\author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
+\date{September 26th, 2018}
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+\section{Exercise 1: Decision Trees}
+\subsection{Part a}
+$0.51996$
+\subsection{Part b}
+entropy of the dataset: $0.991$
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c| }
+        \hline
+        Feature $a_1$ & +      & -     & $p_\text{+}$ & $p_\text{-}$ & entropy\\
+        \hline
+        T          & $3$    & $1$   & $\frac{3}{4}$ & $\frac{1}{4}$ & $0.811$\\
+        \hline
+        F          & $1$    & $4$   & $\frac{1}{5}$ & $\frac{4}{5}$ & $0.722$\\
+        \hline
+    \end{tabular}
+\end{center}
+new entropy for $a_1$: $0.811\times\frac{4}{9} + 0.722\times\frac{5}{9} = 0.762$
+\\
+information gain of a1 $= 0.229$
+
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c| }
+        \hline
+        Feature $a_2$ & +      & -     & $p_\text{+}$ & $p_\text{-}$ & entropy\\
+        \hline
+        T          & $2$    & $3$   & $\frac{2}{5}$ & $\frac{3}{5}$ & $0.971$\\
+        \hline
+        F          & $2$    & $2$   & $\frac{2}{4}$ & $\frac{2}{4}$ & $1$\\
+        \hline
+    \end{tabular}
+\end{center}
+new entropy for $a_2$: $0.971\times\frac{5}{9} + 1\times\frac{4}{9} = 0.762$
+\\
+information gain of a1 $= 0.007$
+\end{document}
