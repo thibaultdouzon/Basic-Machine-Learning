@@ -418,25 +418,28 @@ inside this interval.
 
 \section{Exercise 2: Confusion matrix}
 \subsection{Part a}
-The accuracy of the classifier
-
-Accuracy $=\frac{sum of all true positive}{sum of all the results}$
+The accuracy of the classifier is given by dividing the number of correct classifcations
+by the total number of classifcations.
+\\
+Accuracy $=\frac{\text{Correct classification}}{\text{Total}}$
          $=\frac{110+130+120}{110+8+7+16+130+10+26+5+120}$
-         $= 0.8333 (83.3 \% )$
+         $= 0.833$
           
 \subsection{Part b}
 
-The precision for class C2
-
-Precision C2 =$\frac{true positive of C2}{sum of all predicted positive of C2}$
+The precision for class $C_2$ is given by dividing the number of $C_2$ items correctly classified 
+as $C_2$ by the number of items classified as $C_2$:
+\\
+Precision $C_2 =\frac{\text{Actual }C_2\text{ classified as }C_2 }{\text{Classified as }C_2}$
              $=\frac{130}{130+8+5}$ 
-             $=0.909 (90.9\%)$
+             $=0.909$
 
 \subsection{Part c}
 
-The precision for class C3
-
-Recall C3 $=\frac{True positive}{Total Actual Positive}$
-          $=\frac{5}{26+5+120}$
-          $=0.033 (3.3 \% )$
+The precision for class $C_3$ is given by the number of $C_3$ items correctly classified 
+as $C_3$ by the number of actual $C_3$:
+\\
+Recall $C_3 =\frac{\text{Actual }C_3\text{ classified as }C_3 }{\text{Actual }C_3}$
+          $=\frac{120}{26+5+120}$
+          $=0.795$
 \end{document}
