@@ -35,6 +35,8 @@ def best_split(data, label):
             e_o = 0
         else:
             e_o = entropy(over_pos/over)*over/total
+        
+        print(f'SPLIT {split}, POS:({below_pos}, {over_pos}), NEG:({below_neg}, {over_neg}), RES:({e_b}, {e_o})')
         return e_b + e_o
 
     dataset_entropy = entropy([1 if l==1 else 0 for x,l in zip(data, label)].count(1)/len(data))
@@ -48,7 +50,7 @@ def best_split(data, label):
     for s, e in sorted(splits):
         print(f'Entropy for {s} split is: {e}, information gain: {dataset_entropy-e}')
 def main():
-    a3 = [1,6,5,4,7,3,8,7,5]
+    a3 =    [1,6,5,4,7,3,8,7,5]
     label = [1,1,0,1,0,0,0,1,0]
     best_split(a3, label)
     pass
