@@ -495,19 +495,21 @@ $$
 \Delta = \frac{(10-6)^2}{6}+\frac{(0-4)^2}{4}+\frac{(30-30)^2}{30}+\frac{(20-20)^2}{20}+\frac{(20-24)^2}{24}+\frac{(20-16)^2}{16}
 $$
 $$
-\Delta = \frac{20}{3} \approx 6.667
+\Delta = \frac{25}{3} \approx 8.333
 $$
 
 \subsection{Part b}
 In this case, there are 3 branches, thus $\Delta$ is $\chi^2$ distributed with
-$3-1=2$ degrees of freedom. For 2 degrees of freedom and $\Delta=\frac{20}{3}$ we get from the tables that the
-threshold probability is $\alpha_{0}\approx0.0356$
+$3-1=2$ degrees of freedom. For 2 degrees of freedom and $\Delta=\frac{25}{3}$ we get from the tables that the
+threshold probability is $\alpha_{0}\approx0.0155$
 \\
-That means that with any confidence level $\alpha$ bigger than $0.0356$ we can reject the null
+That means that with any confidence level $\alpha$ bigger than $0.0155$ we can reject the null
 hypothesis.
 \\
-From these figures, we can tell that for any confidence level bigger than $0.0356$, the top node won't
+From these figures, we can tell that for any confidence level bigger than $0.0155$, the top node won't
 be pruned and will be split in 3 child nodes. For exemple, $\alpha=5\%$ level confidence would allow
 the node to be split whereas $\alpha=1\%$ would prune the top node. 
+\\
+In fact, to reach $1\%$ level of confidence, tables say we need $\Delta \geq 9.2103$.
 
 \end{document}
