@@ -442,4 +442,72 @@ as $C_3$ by the number of actual $C_3$:
 Recall $C_3 =\frac{\text{Actual }C_3\text{ classified as }C_3 }{\text{Actual }C_3}$
           $=\frac{120}{26+5+120}$
           $=0.795$
+
+\section{Exercise 3: Pruning}
+
+\subsection{Part a}
+First let's compute $\hat{p}$ and $ \hat{n}$ the proportion of $P$ and $N$ in the root node.
+$$
+\hat{p} = \frac{P}{P+N} = \frac{60}{60+40} = \frac{3}{5}
+$$
+$$
+\hat{n} = \frac{N}{P+N} = \frac{40}{60+40} = \frac{2}{5}
+$$
+We can now compute for each child node $i$ the non-improving propportions $\hat{p}_i$ and $\hat{n}_i$
+with the following formula:
+$$
+\hat{p}_i = \hat{p} \times (P_i + N_i)
+$$
+$$
+\hat{n}_i = \hat{n} \times (P_i + N_i)
+$$
+We obtain the following results:
+\begin{itemize}
+    \item 1\textsuperscript{st} node:
+    $$
+    \hat{p}_1 = \hat{p} \times (P_1 + N_1) = \frac{3}{5}\times(10 +0) = 6
+    $$
+    $$
+    \hat{n}_1 = \hat{n} \times (P_1 + N_1) = \frac{2}{5}\times(10 +0) = 4
+    $$
+
+    \item 2\textsuperscript{nd} node:
+    $$
+    \hat{p}_2 = \hat{p} \times (P_2 + N_2) = \frac{3}{5}\times(30 + 20) = 30
+    $$
+    $$
+    \hat{n}_2 = \hat{n} \times (P_2 + N_2) = \frac{2}{5}\times(30 + 20) = 20
+    $$
+
+    \item 3\textsuperscript{rd} node:
+    $$
+    \hat{p}_3 = \hat{p} \times (P_3 + N_3) = \frac{3}{5}\times(20 +20) = 24
+    $$
+    $$
+    \hat{n}_3 = \hat{n} \times (P_3 + N_3) = \frac{2}{5}\times(20 +20) = 16
+    $$
+\end{itemize}
+Then we compute $\Delta$ using the $\chi^2$ formula:
+$$
+\Delta = \sum_{i\in\text{Child node}} \frac{(p_i-\hat{p}_i)^2}{\hat{p}_i} + \frac{(n_i-\hat{n}_i)^2}{\hat{n}_i}
+$$
+$$
+\Delta = \frac{(10-6)^2}{6}+\frac{(0-4)^2}{4}+\frac{(30-30)^2}{30}+\frac{(20-20)^2}{20}+\frac{(20-24)^2}{24}+\frac{(20-16)^2}{16}
+$$
+$$
+\Delta = \frac{20}{3} \approx 6.667
+$$
+
+\subsection{Part b}
+In this case, there are 3 branches, thus $\Delta$ is $\chi^2$ distributed with
+$3-1=2$ degrees of freedom. For 2 degrees of freedom and $\Delta=\frac{20}{3}$ we get from the tables that the
+threshold probability is $\alpha_{0}\approx0.0356$
+\\
+That means that with any confidence level $\alpha$ bigger than $0.0356$ we can reject the null
+hypothesis.
+\\
+From these figures, we can tell that for any confidence level bigger than $0.0356$, the top node won't
+be pruned and will be split in 3 child nodes. For exemple, $\alpha=5\%$ level confidence would allow
+the node to be split whereas $\alpha=1\%$ would prune the top node. 
+
 \end{document}
