@@ -78,7 +78,7 @@ The entropy of the whole dataset is $0.991$
 
 Now we can look at feature $a_1$ and the repartition of its value accross the target class.
 \\
-We will use the same method as in the lectures, a table where each row represents a possible value
+We will use the same method as in the lectures, a  where each row represents a possible value
 for the feature $a_1$ and the two firsts column give the number of elements, the two following the probabilities 
 and the last one the entropy for this value.
 \begin{center}
@@ -106,7 +106,7 @@ The information gain on splitting on $a_1$ is $0.229$
 
 We apply the same method to compute the information gain on splitting on $a_2$.
 \\
-We get the following table:
+We get the following :
 \begin{center}
     \begin{tabular}{ |c|c|c|c|c|c| }
         \hline
@@ -136,7 +136,7 @@ the maximum value. In a nutshell, there are $6+2=8$ different splits.
 We can expect the two extreme splits (less than min and more than max) to be useless, because it corresponds to not 
 splitting at all the dataset, but for the sake of the exercise, we will compute their information gain also.
 \\
-The method will alway be the same, fill the table, then compute the mean entropy and finally the information gain.
+The method will alway be the same, fill the , then compute the mean entropy and finally the information gain.
 \begin{itemize}[label=$\square$]
     \item Split at $\text{threshold}=0.5$:
     \begin{center}
@@ -500,7 +500,7 @@ $$
 
 \subsection{Part b}
 In this case, there are 3 branches, thus $\Delta$ is $\chi^2$ distributed with
-$3-1=2$ degrees of freedom. For 2 degrees of freedom and $\Delta=\frac{25}{3}$ we get from the tables that the
+$3-1=2$ degrees of freedom. For 2 degrees of freedom and $\Delta=\frac{25}{3}$ we get from the s that the
 threshold probability is $\alpha_{0}\approx0.0155$
 \\
 That means that with any confidence level $\alpha$ bigger than $0.0155$ we can reject the null
@@ -510,6 +510,68 @@ From these figures, we can tell that for any confidence level bigger than $0.015
 be pruned and will be split in 3 child nodes. For exemple, $\alpha=5\%$ level confidence would allow
 the node to be split whereas $\alpha=1\%$ would prune the top node. 
 \\
-In fact, to reach $1\%$ level of confidence, tables say we need $\Delta \geq 9.2103$.
+In fact, to reach $1\%$ level of confidence, s say we need $\Delta \geq 9.2103$.
 
+
+\section{Exercise 4: MCQ}
+In the following MCQs, a \textdagger{} indicates the right answers.
+\subsection{1\textsuperscript{st} MCQ}
+This first question checks if the student knows how to compute the output of a decision tree
+given its graphical representation, and also checks if he is familiar with the accuracy of a model.
+\\
+Q: Here is a a trained decision tree model and a test dataset. Compute the accuracy of the model on
+this dataset.
+\begin{center}
+    \includegraphics[scale=0.6]{qcm1_tree}    
+\end{center}
+\begin{center}
+    \begin{tabular}{ |c|c|c||c| }
+        \hline
+        Refund & Marital Status & Taxable Income & Cheat \\
+        \hline
+        Yes & Single & 220K & No \\
+        \hline
+        No & Divorced & 75K & No \\
+        \hline
+        Yes & Single & 70K & Yes \\
+        \hline
+        No & Married & 110K & No \\
+        \hline
+        No & Divorced & 81K & No \\
+        \hline
+        No & Married & 120K & No \\
+        \hline
+        Yes & Married & 115K & Yes \\
+        \hline
+        No & Divorced & 145K & Yes \\
+        \hline
+    \end{tabular}
+\end{center}
+Answers:
+\begin{enumerate}
+    \item $\text{accuracy} = \frac{5}{8}$ \textdagger
+    \item $\text{accuracy} = \frac{4}{8}$
+    \item $\text{accuracy} = \frac{3}{8}$
+    \item $\text{accuracy} = 0.375$
+\end{enumerate}
+\subsection{2\textsuperscript{nd} MCQ}
+This question checks if the student knows how to read and use a table of values for the $\chi^2$ test.
+Q: During the learning phase of a decision tree, a node is split in 4 child nodes. We decide 
+whether to prune it or not with the $\chi^2$ test, with a confidence level of $95\%$.
+\\
+What should at least be the value of $\Delta$ to not prune the node ?
+\\
+You use this value table of the $\chi^2$ distribution.
+\\
+\includegraphics[scale=0.75]{chi2}
+\\
+Answers:
+\begin{enumerate}
+    \item 0.352
+    \item 0.711
+    \item 7.815
+    \item 9.236 \textdagger
+
+
+\end{enumerate}
 \end{document}
