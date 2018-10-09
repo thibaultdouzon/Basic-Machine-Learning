@@ -22,19 +22,24 @@ graph nn {
     style=filled;
     peripheries=0;
     label="output layer";
-    o
+    o2
+    o1
   }
-  x0 -- h3[taillabel = " 1"];
-  x0 -- h1[taillabel = " 1"];
-  x0 -- h2[taillabel = "2"];
+  x0 -- h3;
+  x0 -- h1;
+  x0 -- h2;
   x1 -- h3;
   x1 -- h1;
   x1 -- h2;
   x2 -- h3;
   x2 -- h1;
   x2 -- h2;
-  h0 -- o;
-  h1 -- o;
-  h2 -- o;
-  h3 -- o;
+  h0 -- o1;
+  h1 -- o1;
+  h2 -- o1;
+  h3 -- o1;
+  h0 -- o2;
+  h1 -- o2;
+  h2 -- o2;
+  h3 -- o2;
 }

@@ -59,6 +59,139 @@
 \section{Exercise 1: NN 1-D output}
 \subsection{Part a}
 
+\section{Exercise 2: NN 2-D output}
+\subsection{Part a}
+The neural network described in this exercise could be represented like this.
+\begin{center}
+\includegraphics[scale=0.5]{ex2_graph_export}
+\end{center}
+It is structured in 3 parts: the input layer first (denoted $x1$, $x2$), then the hidden layer
+(denoted $h1$, $h2$ and $h3$) and then the output layer (denoted $o1$ and $o2$).
+\\
+Nodes with indice 0 represent the bias introducted into the model.
+\\ 
+Each arc carries the value of the weight (denoted $w_{k,j}^{(l)}$ where $l$ is the layer, $k$ is the destination node
+and $j$ is the origin node which lies in the layer $l-1$).
+
+To compute the output of the neural network, we need to propagate
+through the network the values of the input. Hidden layer applies a sigmoïd activation function
+and output neurons have a linear activation function (identity function).
+\\
+Thus we can first compute every $a_k^{(1)}$, the signal recieved by each node in the hidden layer.
+It is easier to make this computation under matrix representation, let's introduce the input vector $X$ and
+the weights of the first layer $W^{(1)}$:
+$$
+X = [a_i^{(0)}] = [x_i] =\begin{bmatrix}
+    1\\
+    1\\
+    1
+\end{bmatrix}
+$$
+$$
+W^{(1)} = [w_{j,i}^{(1)}] =  \begin{bmatrix}
+    1 & 0 & -1\\
+    1 & -1 & 0\\
+    -1 & -1 & 1
+\end{bmatrix}
+$$
+The signal recieved by the hidden layer is given by the following formula:
+$$
+H_{j\ne0} = [a_j^{(1)}]_{j\ne0} = X^\top W^{(1)} = \begin{bmatrix}
+    1\\
+    -2\\
+    0
+\end{bmatrix}
+$$
+Before repeating the same procedure, we need to apply the activation function
+to each recieved signal and then concatenate the bias.
+\\
+The hidden layer uses the sigmoïd function as activation:
+$$
+\sigma(H_{j\ne0}) = [\sigma(a_j{(1)})] = \begin{bmatrix}
+    \sigma(1)\\
+    \sigma(-2)\\
+    \sigma(0)
+\end{bmatrix}
+\approx \begin{bmatrix}
+        0.731\\
+        0.119\\
+        0.5
+\end{bmatrix}
+$$
+Now we can concatenate the bias at the beginning with a fixed value of 1:
+$$
+H_{out} \approx \begin{bmatrix}
+    1\\
+    0.731\\
+    0.119\\
+    0.5
+\end{bmatrix}
+$$
+The vector $H_{out}$ is the signed emitted by the hidden layer.
+\\
+We can now repeat the same procedure with the second layer with $H_{out}$ as input and 
+use the weights of the output layer.
+\\
+The weights of the second layer are the following:
+$$
+W^{(2)} = [w_{k,j}^{(2)}] = \begin{bmatrix}
+    1 & -1\\
+    -1 & 1\\
+    1 & -1\\
+    -1 & 1
+\end{bmatrix}
+$$
+And we can compute the signal recieved by the output layer:
+$$
+O = [a_k^{(2)}] = {H_{out}}^\top W^{(2)} \approx \begin{bmatrix}
+    -0.112\\
+    0.112
+\end{bmatrix}
+$$
+This is the output of our neural network as the activation
+fonction of the output neuron is the identity function.
+
+\subsection{Part b}
+The formula to compute $\delta_i^{(l)}$ is the following:
+$$
+\delta_i^{(l)} = \frac{\partial E_n}{\partial a_i^{(l)}}
+$$
+Where $l$ is the layer and $i$ is the index of the neuron.
+\\
+But to compute the value of this expression for different values of $l$ and $i$,
+we need to know the expression of $E_n$ first. $E_n$ is the error of the network
+on the data sample number $n$. It is defined as follows:
+$$
+E_n(w) = \frac{1}{2} \sum_{k=1}^D ( y_k(x_n,w)-t_{n,k})^2
+$$
+Where $N$ is the number of output neurons (in our case 2), $x_n$ the input data and 
+$t_n$ the target related to $x_n$, $w$ the current weigths of the neural network and 
+$y_k$ the function that computes the $k^\text{th}$ coordinate of the NN's prediction based on the input data.
+\\
+In our case, we can rewrite this expression to this:
+$$
+E_n(w) = \frac{1}{2} \sum_{k=1}^2( y_k(x_n, w)-t_{n,k})^2
+$$
+And because the activation function of the output layer is the identity function,
+we also have the following equation:
+$$
+y_k(x_n,w) = h(a_k^{(2)}) = a_k^{(2)}
+$$
+The analytical expressions of $\delta_1^{(2)}$ and $\delta_2^{(2)}$ directly follows:
+$$
+\delta_i^{(2)} = \frac{\partial E_n}{\partial a_i^{(2)}} = \frac{1}{2}\frac{\partial  \sum_{k=1}^2( a_k^{(2)}-t_{n,k})^2}{\partial a_i^{(2)}} = a_i^{(2)} - t_{n,i}
+$$
+We finally get the following numerical values:
+$$
+\delta_1^{(2)} = a_1^{(2)} - t_{n,1} = -0.112 - 1 = -1.112
+$$
+$$
+\delta_2^{(2)} = a_2^{(2)} - t_{n,2} = 0.112 - (-1) = 1.112
+$$
+
+\subsection{Part c}
+The formula to update a weight is 
+
 \end{document}
     
 $$
