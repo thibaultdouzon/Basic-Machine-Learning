@@ -190,8 +190,109 @@ $$
 $$
 
 \subsection{Part c}
-The formula to update a weight is 
-
+The formula to update a weight is the same as in previous models:
+$$
+w^{[\tau +1]} = w^{[\tau]} - \eta \frac{\partial E_n}{\partial w}(w^{[\tau]})
+$$
+We can use it to compute the new value of weight $w_{2,1}^{(2)}$ 
+\\
+First we will focus on computing $\frac{\partial E_n}{\partial w_{2,1}^{(2)}}$:
+$$
+\frac{\partial E_n}{\partial w_{2,1}^{(2)}}(w) = \frac{\partial E_n}{\partial a_2^{(2)}} \cdot \frac{\partial a_2^{(2)}}{\partial w_{2,1}^{(2)}}(w)
+$$
+$$
+\frac{\partial E_n}{\partial w_{2,1}^{(2)}}(w) = \delta_2^{(2)} \cdot \frac{\partial a_2^{(2)}}{\partial w_{2,1}^{(2)}}(w) 
+$$
+From our previous computation in part a, we know the formula for $a_2^{(2)}$:
+$$
+a_2^{(2)} = \sum_{i=1}^3 w_{2,i}^{(2)}\sigma(a_i^{(1)}) + w_{(2,0)}^{(2)}
+$$
+Hence we deduce:
+$$
+\frac{\partial a_2^{(2)}}{\partial w_{2,1}^{(2)}}(w) = \sigma(a_1^{(1)}) \approx 0.731
+$$
+And finally we get:
+$$
+\frac{\partial E_n}{\partial w_{2,1}^{(2)}}(w) = \delta_2^{(2)} \cdot \frac{\partial a_2^{(2)}}{\partial w_{2,1}^{(2)}}(w) \approx 1.112 \times 0.731 \approx 0.813 
+$$
+We can now apply the formula to update the weight for $w_{2,1}^{(2)}$:
+$$
+w_{2,1}^{(2)[2]} = w_{2,1}^{(2)[1]} - \eta \frac{\partial E_n}{\partial w_{2,1}^{(2)}}(w_{2,1}^{(2)[1]}) 
+$$
+$$
+w_{2,1}^{(2)[2]} \approx 1 - 0.5 \times 0.813 \approx 0.594
+$$
+When applying backpropagation with learning rate of 0.5, the new value of $w_{2,1}^{(2)}$ is 0.594
+\subsection{Part d}
+The first formula from part b still stands:
+$$
+\delta_i^{(l)} = \frac{\partial E_n}{\partial a_i^{(l)}} = \sum_k \frac{\partial E_n}{\partial a_k^{(l+1)}}\frac{\partial a_k^{(l+1)}}{\partial a_i^{(l)}}
+$$
+Thus in our case:
+$$
+\delta_2^{(1)} = \frac{\partial E_n}{\partial a_2^{(1)}} = \sum_{k=1}^2 \frac{\partial E_n}{\partial a_k^{(2)}}\frac{\partial a_k^{(2)}}{\partial a_2^{(1)}}
+$$
+Now because $a_Z^{(1)}$ takes part in every output node, we need to sum over all contributions to the output nodes.
+Moreover, because the hidden layer does not use the identity function as activation, we need to take into account the contribution
+of the activation funtion. This means we need to use the following formula from the lecture:
+$$
+\delta_j^{(l)} = h^\prime(a_j^{(l)})\sum_k w_{k,j}^{(l+1)}\delta_k^{(l+1)} 
+$$
+Which gives in our case:
+$$
+\delta_2^{(1)} = \sigma^\prime(a_2^{(1)})\sum_{k=1}^2 w_{k,2}^{(2)}\delta_k^{(2)} 
+$$
+Using the fact that $\sigma^\prime(x) = \sigma(x)(1-\sigma(x))$ we can rewrite it:
+$$
+\delta_2^{(1)} = \sigma(a_2^{(1)})(1-\sigma(a_2^{(1)}))\sum_{k=1}^2 w_{k,2}^{(2)}\delta_k^{(2)} 
+$$
+$$
+\delta_2^{(1)} \approx 0.119\cdot(1-0.119)\times [1\cdot(-1.112)+(-1)\cdot1.112] \approx -0.233
+$$
+During the first backpropagation, the value of $\delta_2^{(1)}$ is roughly $-0.233$
+\subsection{Part e}
+In this part we want to compute the weights of the neuron 2 of the hidden layer, $\forall k \in \{0,1,2\}, w_{2,k}^{(1)}$ in a more precise way 
+\\
+This is very similar to part c, we need to update some weights so we will use the same formula:
+$$
+w^{[\tau +1]} = w^{[\tau]} - \eta \frac{\partial E_n}{\partial w}(w^{[\tau]})
+$$
+Where we can use the following formula to compute the gradient:
+$$
+\frac{\partial E_n}{\partial w_{2,k}^{(1)}}(w) = \delta_2^{(1)} \cdot \frac{\partial a_2^{(1)}}{\partial w_{2,k}^{(1)}}(w),  \forall k\in\{0,1,2\} 
+$$
+And the term $\frac{\partial a_2^{(1)}}{\partial w_{2,k}^{(1)}}(w)$ can be simplified like this:
+$$
+\frac{\partial a_2^{(1)}}{\partial w_{2,k}^{(1)}}(w) = x_k, \forall k \in\{0,1,2\}
+$$
+Where $x_k$ is the $k^\text{th}$ coordinate of the input. To simplify the notation, it uses the convention that says $x_0=1$ to
+include the bias inside the input vector.
+\\
+Now we are prepared to replace each term with its value for every weight wwe want to update:
+$$
+w_{2,k}^{(1)[\tau +1]} = w_{2,k}^{(1)[\tau]} - \eta \delta_2^{(1)}x_k, \forall k \in \{0,1,2\}
+$$
+For $w_{2,0}^{(1)}$:
+$$
+w_{2,0}^{(1)[2]} = w_{2,0}^{(1)[1]} - \eta \delta_2^{(1)}x_0
+$$
+$$
+w_{2,0}^{(1)[2]} \approx 0 - 0.5\cdot(-0.233)\cdot1 \approx 0.117
+$$
+For $w_{2,1}^{(1)}$:
+$$
+w_{2,1}^{(1)[2]} = w_{2,1}^{(1)[1]} - \eta \delta_2^{(1)}x_1
+$$
+$$
+w_{2,1}^{(1)[2]} \approx (-1) - 0.5\cdot(-0.233)\cdot1 \approx -0.884
+$$
+For $w_{2,2}^{(1)}$:
+$$
+w_{2,2}^{(1)[2]} = w_{2,2}^{(1)[1]} - \eta \delta_2^{(1)}x_2
+$$
+$$
+w_{2,2}^{(1)[2]} \approx (-1) - 0.5\cdot(-0.233)\cdot1 \approx -0.884
+$$
 \end{document}
     
 $$
