@@ -293,6 +293,154 @@ $$
 $$
 w_{2,2}^{(1)[2]} \approx (-1) - 0.5\cdot(-0.233)\cdot1 \approx -0.884
 $$
+Those values are the new weights for neuron 2 in the hidden layer.
+
+\section{Exercise 3: Weight sharing}
+\subsection{Part a}
+The base formula to update the value of a weight is the one we used in previous exercises:
+$$
+w^{[\tau +1]} = w^{[\tau]} - \eta \frac{\partial E_n}{\partial w}(w^{[\tau]})
+$$
+Our goal is now to figure out the formula for $\frac{\partial E_n}{\partial w_{1,2}^{(1)}}$ in term of $\delta$'s and inputs.
+\\
+The regular formula in most simple case is the following:
+$$
+\frac{\partial E_n}{\partial w_{j,i}^{(l)}}(w) = \delta_j^{(l)} \cdot \frac{\partial a_j^{(l)}}{\partial w_{j,i}^{(l)}}(w) 
+$$
+As $w_{1,2}^{(1)}$ appears multiple times in the network, we need to sum up on every hidden node where our weight appears its contribution in order to get the correct value.
+We define $H_{j,i,l}$ to be the set of the node's indices our weight belongs to. It results the following:
+$$
+\frac{\partial E_n}{\partial w_{j,i}^{(l)}}(w) = \sum_{k\in H_{j,i,l}} \delta_k^{(l)} \cdot \frac{\partial a_k^{(l)}}{\partial w_{j,i}^{(l)}}(w) 
+$$
+Where, because we lay in the first layer, we can simplify $\frac{\partial a_k^{(l)}}{\partial w_{j,i}^{(l)}}(w)$ to $x_k$
+\\
+In this exercise, we want to update $w_{1,2}^{(1)}$, thus $H_{1,2,1} = \{1,2\}$.
+Finally we get the following formula for the gradient for our weight:
+$$
+\frac{\partial E_n}{\partial w_{1,2}^{(1)}}(w) = \sum_{k=1}^2 \delta_k^{(1)}x_k 
+$$
+
+Now we can complete our update formula by replcacing the gradiant by the expression we just found:
+$$
+w_{2,1}^{(1)[2]} = w_{2,1}^{(1)[1]} - \eta \sum_{k=1}^2 \delta_k^{(1)}x_k
+$$
+In the next question, we will use formulas similar to this one to update the weights.
+
+\subsection{Part b}
+First we need to compute the output of the network with input $x=[1,\ 1,\ 2,\ 3]^\top$ which already include the bias component.
+\\
+The weights of the first layer can be written like the following using matrices:
+$$
+W^{(1)} = \begin{bmatrix}
+    1 & 0\\
+    1 & \bm{0}\\
+    -1 & 1\\
+    \bm{0} & -1
+\end{bmatrix} 
+$$
+In the previous matrix, some $0$ are bold because they cannot change their value as the weight does not exist.
+No matter the update, those weights will remain zeros.
+\\
+We can now compute the activation of the hidden layer by multiplying inputs and weights:
+$$
+A^{(1)\top} = x^\top W^{(1)} = \begin{bmatrix}
+    0 & -1
+\end{bmatrix} 
+$$
+Now we apply the activation function on the hidden nodes:
+$$
+\sigma(A^{(1)})^\top = \begin{bmatrix}
+    0.5 & 0.269
+\end{bmatrix}
+$$
+And we concatenate with the bias:
+$$
+H_{out}^\top = \begin{bmatrix}
+    1 & 0.5 & 0.269
+\end{bmatrix}
+$$
+The activation of the output node is simply given by the multiplication of the out signal of the hidden layer by the weights of the 
+output node. Those weights are the following:
+$$
+W^{(2)} = \begin{bmatrix}
+    -1\\
+    2\\
+    -1
+\end{bmatrix}
+$$
+And the ouput node activation follows:
+$$
+A^{(2)} = H_{out}^\top W^{(2)} = \begin{bmatrix}
+    -0.269
+\end{bmatrix}
+$$
+And because the activation function of the output node is linear, this result is the actual output of the neural network
+on the given input.
+
+Before trying to update the weights of the first neuron in the hidden layer, we will compute every $\delta$ we need.
+We obviously need to compute $\delta_1^{(2)}$ because it takes part in $\delta$'s of both neuron in hidden layer.
+We also need to compute $\delta_1^{(1)}$ because we want to update the weights of this neuron. We will also (and finally) need 
+$\delta_2^{(1)}$ because some weights of the first neuron appears also in the weights of the second neuron.
+\\
+Let's start with $\delta_1^{(2)}$:
+$$
+\delta_1^{(2)} =  \frac{\partial E_n}{\partial a_1^{(2)}}
+$$
+With 
+$$
+E_n = \frac{1}{2} (y(x_n)-t_n)^2
+$$
+Where $y(x)$ denotes the output of the network for an input $x$ and $t$ is the target associated to $x$
+But because the activation function of the output layer is the identity function, we have the followign identity:
+$$
+y(x) = a_1^{(2)}
+$$
+We deduce from the previous lines the expression of $\delta_1^{(2)}$:
+$$
+\delta_1^{(2)} = a_1^{(2)} - t_n
+$$
+And its value is approximately:
+$$
+\delta_1^{(2)} \approx (-0.269) - 0 = -0.269
+$$
+Now we need to compute both $\delta_1^{(1)}$ and $\delta_2^{(1)}$.
+We will use the formula from the lectures:
+$$
+\delta_j^{(l)} = h^\prime(a_j^{(l)})\sum_k w_{k,j}^{(l+1)}\delta_k^{(l+1)} 
+$$
+Which simplifies in our case because the output is 1-dimension:
+$$
+\delta_j^{(1)} = h^\prime(a_j^{(1)})w_{1,j}^{(2)}\delta_1^{(2)} 
+$$
+In the hidden layer, the activation function is the sigmoïd, then we get our final formula:
+$$
+\delta_j^{(1)} = \sigma(a_j^{(1)})(1-\sigma(a_j^{(1)}))w_{1,j}^{(2)}\delta_1^{(2)} 
+$$
+We will use the previous formula for each neuron:
+$$
+\delta_1^{(1)} = \sigma(a_1^{(1)})(1-\sigma(a_1^{(1)}))w_{1,1}^{(2)}\delta_1^{(2)} 
+$$
+$$
+\delta_1^{(1)} \approx \sigma(0)(1-\sigma(0))\cdot2\cdot(-0.269) \approx -0.135
+$$
+And now the second neuron:
+$$
+\delta_2^{(1)} = \sigma(a_2^{(1)})(1-\sigma(a_2^{(1)}))w_{1,2}^{(2)}\delta_2^{(2)} 
+$$
+$$
+\delta_2^{(1)} \approx \sigma(-1)(1-\sigma(-1))\cdot(-1)\cdot(-0.269) \approx 0.053
+$$
+
+Now we will update each weight of the first neuron. The general formula to update a weight is the following one:
+$$
+w^{[\tau +1]} = w^{[\tau]} - \eta \frac{\partial E_n}{\partial w}(w^{[\tau]})
+$$
+We will start with the bias because its updating formula simplifies nicely as $\frac{\partial E_n}{\partial w_{1,0}^{(1)}}=\delta_1^{(1)}x_0$:
+Finally we get the following:
+$$
+w_{1,0}^{[2]} = w_{1,0}^{[1]} - \eta \delta_1^{(1)}x_0
+$$
+
 \end{document}
     
 $$
