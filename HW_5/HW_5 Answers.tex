@@ -312,17 +312,22 @@ We define $H_{j,i,l}$ to be the set of the node's indices our weight belongs to.
 $$
 \frac{\partial E_n}{\partial w_{j,i}^{(l)}}(w) = \sum_{k\in H_{j,i,l}} \delta_k^{(l)} \cdot \frac{\partial a_k^{(l)}}{\partial w_{j,i}^{(l)}}(w) 
 $$
-Where, because we lay in the first layer, we can simplify $\frac{\partial a_k^{(l)}}{\partial w_{j,i}^{(l)}}(w)$ to $x_k$
+Where, because we lay in the first layer, we can simplify $\frac{\partial a_k^{(l)}}{\partial w_{j,i}^{(l)}}(w)$ to $x_i$
+We also need to define the set of input neuron's indices $I_{j,i,l}$ that wiil complete the information held in $H_{j,i,l}$. 
 \\
-In this exercise, we want to update $w_{1,2}^{(1)}$, thus $H_{1,2,1} = \{1,2\}$.
 Finally we get the following formula for the gradient for our weight:
 $$
-\frac{\partial E_n}{\partial w_{1,2}^{(1)}}(w) = \sum_{k=1}^2 \delta_k^{(1)}x_k 
+\frac{\partial E_n}{\partial w_{1,2}^{(1)}}(w) = \sum_{\substack{k\in H_{1,2,1}\\i\in I_{1,2,1}}} \delta_k^{(1)}x_i 
 $$
 
+In this exercise, we want to update $w_{1,2}^{(1)}$, thus $H_{1,2,1} = \{1,2\}$ and $I_{1,2,1} = \{2,3\}$.
 Now we can complete our update formula by replcacing the gradiant by the expression we just found:
 $$
-w_{2,1}^{(1)[2]} = w_{2,1}^{(1)[1]} - \eta \sum_{k=1}^2 \delta_k^{(1)}x_k
+w_{1,2}^{(1)[2]} = w_{1,2}^{(1)[1]} - \eta \sum_{\substack{k\in\{1,2\}\\i\in\{2,3\}}} \delta_k^{(1)}x_i
+$$
+Which develops to the following expression:
+$$
+w_{1,2}^{(1)[2]} = w_{1,2}^{(1)[1]} - \eta (\delta_1^{(1)}x_2 + \delta_2^{(1)}x_3)
 $$
 In the next question, we will use formulas similar to this one to update the weights.
 
@@ -436,11 +441,61 @@ $$
 w^{[\tau +1]} = w^{[\tau]} - \eta \frac{\partial E_n}{\partial w}(w^{[\tau]})
 $$
 We will start with the bias because its updating formula simplifies nicely as $\frac{\partial E_n}{\partial w_{1,0}^{(1)}}=\delta_1^{(1)}x_0$:
-Finally we get the following:
 $$
-w_{1,0}^{[2]} = w_{1,0}^{[1]} - \eta \delta_1^{(1)}x_0
+w_{1,0}^{(1)[2]} = w_{1,0}^{(1)[1]} - \eta \delta_1^{(1)}x_0
+$$
+And now we can replace with the values:
+$$
+w_{1,0}^{(1)[2]} \approx 1 - 0.4\cdot(-0.135)\cdot1 \approx 1.054
+$$
+For the two other weights, because they are shared weights between the two neurons in the hidden layer,
+the formula does not simplifies the same.
+\\
+We will use the analytic formula we've found in part a for $w_{1,2}^{(1)}$ and claim the sme formula applies for
+$w_{1,1}^{(1)}$. But first let's apply the part a formula directly to update $w_{1,2}^{(1)}$:
+$$
+w_{1,2}^{(1)[2]} = w_{1,2}^{(1)[1]} - \eta (\delta_1^{(1)}x_2 + \delta_2^{(1)}x_3)
+$$
+$$
+w_{1,2}^{(1)[2]} \approx (-1) - 0.4\cdot(-0.135\cdot2+0.053\cdot3) \approx -0.956
+$$
+Now let's take care of $w_{1,1}^{(1)}$. Because it also share its value with another weight ($w_{2,2}^{(1)}$), 
+we fall in the same situation as with $w_{1,2}^{(1)}$: we need to take into account the influence of neuron 1 and 2 from the hidden layer.  
+\\
+In fact when we try to compute $\frac{\partial E_n}{\partial w_{1,1}^{(1)}}$, we need to figure out what are the values of 
+$H_{1,1,1}$ and $I_{1,1,1}$.
+From the picture describing the network, we find out that $H_{1,1,1} = \{1,2\}$ and $I_{1,1,1} = \{1,2\}$
+\\
+We finally obtain the following formula to update our weight:
+$$
+\frac{\partial E_n}{\partial w_{1,1}^{(1)}}(w) = \sum_{\substack{k\in H_{1,2,1}\\i\in I_{1,2,1}}} \delta_k^{(1)}x_i 
+$$
+$$
+\frac{\partial E_n}{\partial w_{1,1}^{(1)}}(w) = \sum_{\substack{k\in \{1,2\}\\i\in \{1,2\}}} \delta_k^{(1)}x_i 
+$$
+And now we can replace the exprression of the gradient in the update formula:
+$$
+w_{1,1}^{(1)[2]} = w_{1,1}^{(1)[1]} - \eta \sum_{\substack{k\in \{1,2\}\\i\in \{1,2\}}} \delta_k^{(1)}x_i 
+$$
+$$
+w_{1,1}^{(1)[2]} = w_{1,1}^{(1)[1]} - \eta (\delta_1^{(1)}x_1 + \delta_2^{(1)}x_2) 
+$$
+$$
+w_{1,1}^{(1)[2]} \approx 1 - 0.4\cdot(-0.135\cdot1 + 0.053\cdot2)\approx 1.012
 $$
 
+We can now group up our results:
+$$
+\bm{w}_1^{(1)[2]} = [w_{1,i}^{(1)[2]}]_{i\in\{0,1,2\}} = \begin{bmatrix}
+    1.054\\
+    1.012\\
+    -0.956
+\end{bmatrix}
+$$
+We can notice that every weights have increased a bit their value which is coherent as the output was a bit too
+low and the weight from the hidden neuron 1 to the output is positive. This reasoning only works well for the bias 
+weight and is more difficult to justify for the two other weights because they share their value with another weight 
+that goes to the second neuron of the hidden layer.
 \end{document}
     
 $$
