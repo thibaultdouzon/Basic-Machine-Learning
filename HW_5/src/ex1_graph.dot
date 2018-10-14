@@ -24,9 +24,9 @@ graph nn {
     label="output layer";
     o
   }
-  x0 -- h3[taillabel = " 1"];
-  x0 -- h1[taillabel = " 1"];
-  x0 -- h2[taillabel = "2"];
+  x0 -- h3;
+  x0 -- h1;
+  x0 -- h2;
   x1 -- h3;
   x1 -- h1;
   x1 -- h2;
