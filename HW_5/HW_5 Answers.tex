@@ -705,6 +705,28 @@ We can notice that every weights have increased a bit their value which is coher
 low and the weight from the hidden neuron 1 to the output is positive. This reasoning only works well for the bias 
 weight and is more difficult to justify for the two other weights because they share their value with another weight 
 that goes to the second neuron of the hidden layer.
+
+\section{MCQs}
+In both MCQ, every correct answer are denoted by a \textdagger
+\subsection{First MCQ}
+This first question checks if the students knows how to compute $\delta$ of the output based on the error 
+function and the activation function. 
+\\
+Q: Given that the ouput neuron of a neural network uses a sigmoïd as activation function ($\sigma(x) = \frac{1}{1+e^{(-x)}}$) and that 
+\\the error function is the following: $E=- \sum_n(t_n\ln (y_n)  +(1-t_n)\ln (1-y_n))$.
+where $y_n$ is the output of the NN for an input$x_n$ and $t_n$ is the target.
+\\
+What shall be the expression of $\delta$ of this output neuron ?
+A:
+\begin{enumerate}
+   \item $t_n - y_n$
+   \item $y_n - t_n$ \textdagger
+   \item $-\left(\frac{t_n}{y_n}-\frac{1-t_n}{1-y_n}\right)y_n(1-y_n)$ \textdagger
+   \item $\vert y_n-t_n\vert$
+\end{enumerate}
+
+\subsection{Second MCQ}
+put a NN and ask to compute the output
 \end{document}
     
 $$
