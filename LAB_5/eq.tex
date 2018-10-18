@@ -1,0 +1,103 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\setlength{\marginparwidth}{2cm}
+
+\usepackage{comment}
+\usepackage{todonotes}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\usepackage{enumitem}
+\usepackage{array}
+\setlength\extrarowheight{5pt}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{ {./img/} }
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+    language=Python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+}
+
+\title{Homework Assignment N°4}
+\author{BML36\\Thibault Douzon\\Rajavarman Mathivanan}
+\date{October 3rd, 2018}
+
+\begin{document}
+$$
+\frac{\partial E}{\partial w_i}(w) = \frac{\partial \frac{1}{2}\sum_{n=1}^N (\sigma(w^\top x_n) - t_n)^2}{\partial w_i}
+$$
+$$
+\frac{\partial E}{\partial w_i}(w) =\sum_{n=1}^N \frac{\partial \frac{1}{2} (\sigma(w^\top x_n) - t_n)^2}{\partial \sigma(w^\top x_n)-t_n} \cdot \frac{\partial \sigma(w^\top x_n)-t_n}{\partial w^\top x_n}\cdot \frac{\partial w^\top x_n}{\partial w_i}
+$$
+$$
+\frac{\partial E}{\partial w_i}(w) =\sum_{n=1}^N (\sigma(w^\top x_n)-t_n) \cdot \sigma(w^\top x_n)(1-\sigma(w^\top x_n)) \cdot x_{n,i}
+$$
+$$
+\frac{A}{B} = \frac{A}{D}\times\frac{D}{C}\times\frac{C}{B}
+$$
+$$
+E(w) = \frac{1}{2}\sum_{n=1}^N (\sigma(w^{(1)}\cdot\sigma({w^{(0)}}^\top x_n)) - t_n)^2
+$$
+$$
+\frac{\partial E}{\partial w^{(1)}}(w) =  \frac{\partial \frac{1}{2}\sum_{n=1}^N(\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n)^2}{\partial w^{(1)}}
+$$
+$$
+\frac{\partial E}{\partial w^{(1)}}(w) = \sum_{n=1}^N \frac{\partial\frac{1}{2}(\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n)^2}{\partial \sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n} \cdot \frac{\partial\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n}{w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})}\cdot\frac{\partial w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})}{\partial w^{(1)}}
+$$
+$$
+\frac{\partial E}{\partial w^{(1)}}(w) = \sum_{n=1}^N (\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n}))-t_n)\cdot \sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n}))(1-\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})))\cdot \sigma({{w^{(0)}}^\top x_n})
+$$
+set
+$$
+a_0 = {{w^{(0)}}^\top x_n}\text{ and }a_1 = {{w^{(1)}}^\top \sigma(a_0)} \text{ and }\delta_1 = (\sigma(a_1)-t_n)\cdot \sigma(a_1)(1-\sigma(a_1)) 
+$$
+$$
+\frac{\partial E}{\partial w^{(1)}}(w) = \sum_{n=1}^N \delta_1\cdot  \sigma(a_0)
+$$
+
+$$
+\frac{\partial E}{\partial w^{(0)}_i}(w) = \frac{\partial \frac{1}{2}\sum_{n=1}^N(\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n)^2}{\partial w^{(0)}_i}
+$$
+$$
+\frac{\partial E}{\partial w^{(0)}_i}(w) = \sum_{n=1}^N \frac{\partial\frac{1}{2}(\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n)^2}{\partial \sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n} \cdot \frac{\partial\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})) - t_n}{w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})}\cdot\frac{\partial w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})}{\partial {w^{(0)}}^\top x_n}\cdot \frac{\partial {w^{(0)}}^\top x_n}{\partial w^{(0)}_i}
+$$
+$$
+\frac{\partial E}{\partial w^{(0)}_i}(w) = \sum_{n=1}^N (\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n}))-t_n)\cdot \sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n}))(1-\sigma(w^{(1)}\cdot\sigma({{w^{(0)}}^\top x_n})))\cdot w^{(1)}\sigma({{w^{(0)}}^\top x_n})(1-\sigma({{w^{(0)}}^\top x_n}))\cdot x_{n,i}
+$$
+$$
+\frac{\partial e}{\partial w^{(0)}_i}(w) = \sum_{n=1}^n \delta_1\cdot w^{(1)}\sigma(a_0)(1-\sigma(a_0))\cdot x_{n,i}
+$$
+set
+$$
+\delta_0 = \delta_1\cdot w^{(1)}\sigma(a_0)(1-\sigma(a_0))
+$$
+$$
+\frac{\partial E}{\partial w^{(0)}_i}(w) = \delta_0 x_{n,i} 
+$$
+\end{document}
