@@ -1,0 +1,37 @@
+graph nn {
+  rankdir=LR;
+  ranksep="5 equally";
+  nodesep="2 equally";
+  splines=line;
+  subgraph cluster_i {
+    style=filled;
+    peripheries=0;
+    label="input layer";
+	x1
+  }
+  subgraph cluster_h {
+    style=filled;
+    peripheries=0;
+    label="hidden layer 1";
+
+    h2
+	h1
+  }
+  subgraph cluster_o {
+    style=filled;
+    peripheries=0;
+    label="output layer";
+    o2
+    o1
+  }
+  x0 -- h1;
+  x0 -- h2;
+  x1 -- h1;
+  x1 -- h2;
+  h0 -- o1;
+  h1 -- o1;
+  h2 -- o1;
+  h0 -- o2;
+  h1 -- o2;
+  h2 -- o2;
+}
